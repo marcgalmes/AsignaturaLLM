@@ -1,0 +1,57 @@
+body {
+	background-image: url("../img/fondo_espacial.jpg");
+}
+
+#tauler-control {
+	padding: 2% 2%;
+	position: absolute;
+	height: 30%;
+	color: RGB(255,255,255);
+	font-size: 5vh;
+}
+
+img.control{
+        height: 30%
+}
+
+.lander {
+	position: absolute;
+	top: 10%;
+	left: 50%;
+        height: 20%;
+}
+
+img.lander {
+	height: 100%;
+}
+
+
+#tauler-opcions{
+	padding: 0% 0%;
+	position: fixed;
+	right: 0;
+	bottom: 10vw; 
+}
+img.button {
+	height: 10vh;
+        width: auto;
+	margin-left: 22px;
+}
+
+
+.fons-lunar {
+	padding-bottom: 0%;
+	position: absolute;
+	right: 0;	
+	bottom: 0;
+	
+}
+
+img.fons-lunar {
+	width: 100%;
+	height: 10vw;
+	position: fixed;
+}
+
+
+

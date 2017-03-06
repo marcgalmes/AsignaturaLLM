@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<questions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="preguntas.xsd">
+
+  <question id='mrl1'>
+	  <type>checkbox</type>
+	  <title>¿Qué etiquetas pueden figurar en la sección &lt;head&gt;?</title>
+	  <option>&lt;style&gt;</option>
+	  <option>&lt;title&gt;</option>
+	  <option>&lt;header&gt;</option>
+	  <option>&lt;footer&gt;</option>
+	  <option>&lt;p&gt;</option>
+	  <answer>0</answer>
+	  <answer>1</answer>
+	  </question>
+
+  <question id='mrl2'>
+	  <type>checkbox</type>
+	  <title>Que sentencias son ciertas de JS?</title>
+	  <option>Es un lenguaje interpretado.</option>
+	  <option>Hay compilación</option>
+	  <option>No hay compilación</option>
+	  <option>JS significa JavaScript</option>
+	  <answer>0</answer>
+	  <answer>2</answer>
+	  <answer>3</answer>
+  </question>
+
+  <question id='mrl3'>
+	  <type>text</type>
+	  <title>Que significa CSS?</title>
+	  <answer>Cascading Style Sheets</answer>
+  </question>
+
+  <question id='mrl4'>
+	  <type>text</type>
+	  <title>Cual es el nombre del elemento raiz de un documento html?</title>
+	  <answer>html</answer>
+  </question>
+
+  <question id='mrl5'>
+	  <type>select</type>
+	  <title>¿Que es XHTML?</title>
+	  <option>HTML</option>
+	  <option>HyperText Markup Language</option> 
+	  <option>Extensible HyperText Markup Language</option>
+	  <answer>2</answer>
+  </question>
+
+  <question id='mrl6'>
+	  <type>select</type>
+	  <title>Porque se usa XHTML?</title>
+	  <option>Para que funcione en los navegadores</option>
+	  <option>Para que funcione en los ordenadores</option> 
+	  <option>Para que funcione en dispositivos pequeños</option>
+	  <option>Para que sea incompatible con algunos navegadores</option>
+	  <answer>2</answer>
+  </question>
+
+  <question id='mrl7'>
+	  <type>select multiple</type>
+	  <title>Que elementos son inline?</title>
+	  <option>&lt;div&gt;</option>
+	  <option>&lt;span&gt;</option> 
+	  <option>&lt;a&gt;</option>
+	  <option>&lt;img&gt;</option>
+	  <option>&lt;form&gt;</option>
+	  <answer>1</answer> 
+	  <answer>2</answer> 
+	  <answer>3</answer> 
+  </question>
+
+  <question id='mrl8'>
+	  <type>select multiple</type>
+	  <title>¿Qué elementos son block?</title>
+	  <option>Los que inician nueva línea</option>
+	  <option>Los que retroceden una línea</option> 
+	  <option>Los que ocupan 100% de ancho</option>
+	  <option>Los que ocupan 100% de alto</option>
+	  <answer>0</answer> 
+	  <answer>2</answer> 
+  </question>
+
+  <question id='mrl9'>
+	  <type>radio</type>
+	  <title>Cual es la sintaxis de CSS?</title>
+	  <option>propiedad {selector="valor";}</option>
+	  <option>selector {valor:"propiedad",}</option> 
+	  <option>selector {propiedad:valor;}</option>
+	  <answer>2</answer> 
+  </question>
+ 
+  <question id='mrl10'>
+	  <type>radio</type>
+	  <title>Cómo son los comentarios en XML?</title>
+	  <option>/* comentario */</option>
+	  <option>&lt;!-- comentario --&gt;</option> 
+	  <option>No existen comentarios en XML</option>
+	  <answer>1</answer> 
+  </question>
+
+</questions>

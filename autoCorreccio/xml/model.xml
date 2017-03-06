@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preguntes>
+ <pregunta id='profe001'>
+  <tipus>text</tipus>
+  <text>Extensió d'un fitxer full d'estill</text>
+  <resposta>css</resposta>
+ </pregunta>
+ <pregunta id='profe002'>
+  <tipus>text</tipus>
+  <text>Quin és nom de l'element arrel d'un document html?</text>
+  <resposta>html</resposta>
+ </pregunta>
+ <pregunta id='profe003'>
+  <tipus>select</tipus>
+  <text>Un lleó mort de fam, qué menja?</text>
+  <opcio>Carn</opcio>
+  <opcio>Peix</opcio> 
+  <opcio>Res, està mort</opcio>
+  <resposta>2</resposta> <!-- 0, 1, 2 -->
+ </pregunta>
+ <pregunta id='profe004'>
+  <tipus>select</tipus>
+  <text>Qué vol dir XML?</text>
+  <opcio>X Manage Language</opcio>
+  <opcio>Extensible Markup Language</opcio> 
+  <opcio>Llenguatge extrem multiplataforma</opcio>
+  <resposta>1</resposta> <!-- 0, 1, 2 -->
+ </pregunta>
+</preguntes>

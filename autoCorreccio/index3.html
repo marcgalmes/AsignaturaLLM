@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width">
+	<title>Title very </title>
+    <script src="js/questions.js"></script>
+	<style type="text/css">
+		body {
+			margin: 0;
+		}
+
+		#topnav {
+			font-size: 2vw;
+            color: #999999;
+			border: 1px solid;
+			padding: 1% 8%;
+			margin: 1% 8%;
+			height: 6vw;
+			font-family: myFirstFont;
+		}
+        
+        #pagina {
+            padding: 1% 8%;
+        }
+        
+        .pregunta {
+            padding: 10px 20px;
+        }
+        
+        .opcion {
+            padding: 10px 5px;
+            background-color: #eeeeee;
+        }
+        
+        .opcion:hover {
+            background-color: #e1e1e1;
+        }
+        
+        .respuesta {
+            padding: 10px 5px;
+        }
+        
+        #enviar {
+            padding: 1% 8%;
+        }
+
+		@font-face {
+			font-family: myFirstFont;
+			src: url(font/TrajanPro3-Regular.otf);
+		}
+
+	</style>
+</head>
+<body>
+	<!-- Cabesa: tutulo con logo+nombre univercidad -->
+	<header>
+		<div id="topnav"><img style="float:left; height: 6vw;" src="img/logoNoOficial.png"/>Examen de lenguajes de marcas</div>
+	</header>
+	<article>
+    <form id="enviar">
+		<div id="pagina">
+        
+        <!-- pregunta opciones -->
+            <div class="pregunta">
+                <span id="pregunta1">¿Que pregunta pregunta una pregunta no se que?</span>
+                <label for="opcion1">
+                    <div class="opcion">
+                        <input id="opcion1" name="pregunta1" type="radio"/> Opcion 1: hola q tal
+                    </div>
+                </label>
+                <label for="opcion2">
+                    <div class="opcion">
+                        <input id="opcion2" name="pregunta1" type="radio"/> Opcion 2: hola q tal                        
+                    </div>
+                </label>
+                <label for="opcion3">
+                    <div class="opcion">
+                        <input id="opcion3" name="pregunta1" type="radio"/> Opcion 3: hola q tal
+                    </div>
+                </label>
+            </div>
+            
+            <!-- pregunt texto -->
+            <div class="pregunta">
+                ¿Cual de pregunta que es la pregunta?
+                <div class="respuesta">
+                    <input type="text"/>
+                </div>
+            </div>
+            
+            <!-- pregunta sleect -->
+            <div class="pregunta">
+                Selecciona la no se q wwhateveeer :v
+            </div>
+            
+        </div>
+
+            <input type="button" value="embiar fromulario">
+        </form>
+	</article>
+</body>
+</html>
