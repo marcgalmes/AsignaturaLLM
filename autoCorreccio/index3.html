@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width">
 	<title>Title very </title>
-    <script src="js/questions.js"></script>
+    <!-- <script src="js/questions.js"></script> -->
 	<style type="text/css">
 		body {
 			margin: 0;
@@ -18,6 +18,12 @@
 			height: 6vw;
 			font-family: myFirstFont;
 		}
+        
+        #nombreExamen {
+            font-family: Arial;
+            text-align: right;
+            font-size: smaller;
+        }
         
         #pagina {
             padding: 1% 8%;
@@ -40,7 +46,7 @@
             padding: 10px 5px;
         }
         
-        #enviar {
+        #formExamen {
             padding: 1% 8%;
         }
 
@@ -52,50 +58,90 @@
 	</style>
 </head>
 <body>
-	<!-- Cabesa: tutulo con logo+nombre univercidad -->
+        
 	<header>
-		<div id="topnav"><img style="float:left; height: 6vw;" src="img/logoNoOficial.png"/>Examen de lenguajes de marcas</div>
+		<div id="topnav"><img style="float:left; height: 6vw;" src="img/logoNoOficial.png"/>Universidad De Marcianitos<br>
+        <span id="nombreExamen"><b>Examen: Lenguajes de Marcas</b></span>
+        </div>
 	</header>
 	<article>
-    <form id="enviar">
-		<div id="pagina">
+    <form id="fromExamen">
         
-        <!-- pregunta opciones -->
-            <div class="pregunta">
-                <span id="pregunta1">¿Que pregunta pregunta una pregunta no se que?</span>
-                <label for="opcion1">
+            <!-- pregunta radio -->
+            <div class="pregunta tipoRadio">
+                <span class="textPregunta">¿Pregunta radio?</span>
+                <label for="opcionRadio_1">
                     <div class="opcion">
-                        <input id="opcion1" name="pregunta1" type="radio"/> Opcion 1: hola q tal
+                        <input id="opcionRadio_1" name="pregunta " type="radio"/> Opcion
                     </div>
                 </label>
-                <label for="opcion2">
+                <label for="opcionRadio_2">
                     <div class="opcion">
-                        <input id="opcion2" name="pregunta1" type="radio"/> Opcion 2: hola q tal                        
+                        <input id="opcionRadio_2" name="pregunta " type="radio"/> Opcion
                     </div>
                 </label>
-                <label for="opcion3">
+                <label for="opcionRadio_3">
                     <div class="opcion">
-                        <input id="opcion3" name="pregunta1" type="radio"/> Opcion 3: hola q tal
+                        <input id="opcionRadio_3" name="pregunta " type="radio"/> Opcion
                     </div>
                 </label>
+                
             </div>
             
-            <!-- pregunt texto -->
-            <div class="pregunta">
-                ¿Cual de pregunta que es la pregunta?
+            <!-- pregunt text -->
+            <div class="pregunta tipoText">
+                <span class="textPregunta">¿Pregunta text?</span>
                 <div class="respuesta">
                     <input type="text"/>
                 </div>
             </div>
             
-            <!-- pregunta sleect -->
-            <div class="pregunta">
-                Selecciona la no se q wwhateveeer :v
+            <!-- pregunta select -->
+            <div class="pregunta tipoSelect">
+                <span class="textPregunta">¿Pregunta select?</span>
+                <select class="select">
+                    <option class="opcionSelect">Opcion</option>
+                    <option class="opcionSelect">Opcion</option>
+                    <option class="opcionSelect">Opcion</option>
+                </select>                
             </div>
             
+            <!-- pregunta select multiple -->
+            <div class="pregunta tipoSelectMultiple">
+                <span class="textPregunta">¿Pregunta select?</span><br>
+                <select multiple class="selectMultiple">
+                    <option class="opcionSelectMultiple">Opcion</option>
+                    <option class="opcionSelectMultiple">Opcion</option>
+                    <option class="opcionSelectMultiple">Opcion</option>
+                    <option class="opcionSelectMultiple">Opcion</option>
+                </select>                
+            </div>
+            
+            <!-- pregunta checkbox -->
+            <div class="pregunta tipoCheckbox">
+                <span class="textPregunta">¿Pregunta checkbox?</span>
+                <label for="opcionCheckbox_1">
+                    <div class="opcion">
+                        <input id="opcionCheckbox_1" name="pregunta " type="checkbox"/> Opcion
+                    </div>
+                </label>
+                <label for="opcionCheckbox_2">
+                    <div class="opcion">
+                        <input id="opcionCheckbox_2" name="pregunta " type="checkbox"/> Opcion
+                    </div>
+                </label>
+                <label for="opcionCheckbox_3">
+                    <div class="opcion">
+                        <input id="opcionCheckbox_3" name="pregunta " type="checkbox"/> Opcion
+                    </div>
+                </label>
+                
+            </div>
+            
+            <input type="button" value="hembiar frromullaryoh">
         </div>
 
-            <input type="button" value="embiar fromulario">
+            
         </form>
 	</article>
 </body>
