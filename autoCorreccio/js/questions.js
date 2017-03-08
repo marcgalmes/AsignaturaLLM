@@ -166,20 +166,6 @@ $('option').mousedown(function(e) {
 //****************************************************************************************************
 //implementación de la corrección
 
-function corregirNumber(){
-  //Vosotros debéis comparar el texto escrito con el texto que hay en el xml
-  //en este ejemplo hace una comparación de números enteros
-  var s=formElement.elements[0].value;     
-  if (s==numeroSecreto) {
-   darRespuestaHtml("P1: Exacto!");
-   nota +=1;
-  }
-  else {
-    if (s>numeroSecreto) darRespuestaHtml("P1: Te has pasado");
-    else darRespuestaHtml("P1: Te has quedado corto");
-  }
-}
-
 function corregirSelect(){
   //Compara el índice seleccionado con el valor del íncide que hay en el xml (<answer>2</answer>)
   //para implementarlo con type radio, usar value para enumerar las opciones <input type='radio' value='1'>...
@@ -213,49 +199,6 @@ function corregirCheckbox(){
     }   
    } 
   }
-}
-
-//****************************************************************************************************
-// poner los datos recibios en el HTML
-function ponerDatosInputHtml(t){
- document.getElementById("enviar").innerHTML = t;
-}
-
-function ponerDatosSelectHtml(t,opt){
-  document.getElementById("enviar").innerHTML=t;
-  var select = document.getElementsByTagName("select")[0];
-  for (i = 0; i < opt.length; i++) { 
-    var option = document.createElement("option");
-    option.text = opt[i];
-    option.value=i+1;
-    select.options.add(option);
- }  
-}
-
-function ponerDatosCheckboxHtml(t,opt,checkboxContainer){
- checkboxContainer.getElementsByClassName('textPregunta')[0].innerHTML = t;
- for (i = 0; i < opt.length; i++) { 
-    var outerHTML = document.getElementsByClassName("pregunta tipoCheckbox")[0].outerHTML;
-    checkboxContainer.outerHTML(outerHTML);
- }  
-}
-
-//****************************************************************************************************
-//Gestionar la presentación de las respuestas
-function darRespuestaHtml(r){
- var p = document.createElement("p");
- var node = document.createTextNode(r);
- p.appendChild(node);
- document.getElementById('resultadosDiv').appendChild(p);
-}
-
-function presentarNota(){
-   darRespuestaHtml("Nota: "+nota+" puntos sobre 3");
-}
-
-function inicializar(){
-   document.getElementById('resultadosDiv').innerHTML = "";
-   nota=0.0;
 }
 
 //Comprobar que se han introducido datos en el formulario
