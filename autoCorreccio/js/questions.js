@@ -3,6 +3,7 @@ var numeroSecreto=null;
 var respuestaSelect=null;
 var respuestasCheckbox = [];
 var nota = 0;  //nota de la prueba sobre 3 puntos (hay 3 preguntas)
+var mostrarerrores = true;
 
 //**************************************************************************************************** 
 //Después de cargar la página (onload) se definen los eventos sobre los elementos entre otras acciones.
@@ -37,7 +38,78 @@ window.onload = function(){
 // xmlDOC es el documento leido XML. 
 function gestionarXml(dadesXml){
  var xmlDoc = dadesXml.responseXML; //Parse XML to xmlDoc
+ if (xmlDoc == undefined ) {
+     mostrarError("no hay xml.")
+     return;
+ }
  
+ var tipos = {};//contendra el html para cada tipo
+ 
+ if (document.getElementsByClassName("pregunta").length<5){//tienen q estar los 5 tipos
+     mostrarError("faltan tipos de pregunta en el documento.")
+ }
+ 
+ //el html ya tiene los 5 tipos (hidden), asi q solo buscamos cada pregunta de cada tipo
+ tipos["radio"]             = document.getElementsByClassName("pregunta tipoRadio")                 [0] ;
+ tipos["text"]              = document.getElementsByClassName("pregunta tipoText")                  [0] ;
+ tipos["select"]            = document.getElementsByClassName("pregunta tipoSelect")                [0] ;
+ tipos["select multiple"]   = document.getElementsByClassName("pregunta tipoSelectMultiple")         [0] ;
+ tipos["checkbox"]          = document.getElementsByClassName("pregunta tipoCheckbox")              [0] ;
+ 
+ 
+ //variable preguntas: todas las etiquietas <question> del xml
+ //divsPreguntas: todos los divs del html con clase "pregunta"
+ var preguntas = xmlDoc.getElementsByTagName("question");
+ var divsPreguntas = []
+ 
+ //recorremos preguntas del xml
+ for (i = 0; i < preguntas.length; i++) {
+     var div    = document.createElement("div");
+     var preg   = preguntas[i];
+     
+     divsPreguntas[i] = div;
+     
+     var t = preguntas[i].getElementsByTagName("type");
+     var q = preguntas[i].getElementsByTagName("title");
+     var a = preguntas[i].getElementsByTagName("answer");
+     var o = preguntas[i].getElementsByTagName("option");
+     
+     if (t.length==0) {
+         mostrarError("el xml no está bien.");
+         return;
+     }
+     
+     var tipo = t[0].innerHTML;
+     
+     if (!(tipo in tipos)) {
+         mostrarError("hay un tipo incorrecto.")
+         return;
+     }
+     
+     var modelo = tipos[tipo];
+     if (modelo == undefined) {
+         mostrarError("falta un tipo en el documento.")
+     }
+     
+     div.innerHTML = modelo.innerHTML;
+     div.setAttribute("class",modelo.getAttribute("class"));
+     div.setAttribute("id","preg_"+preg.getAttribute("id"));
+     
+     //poner texto de las preguntas
+     div.getElementsByClassName("textPregunta")[0].innerHTML = q[0].innerHTML;
+     
+     document.getElementById("pagina").appendChild(div);
+ }
+ 
+ //ahora borramos las preguntas de los tipos
+ for (t in tipos) {
+     tipos[t].remove();
+ }
+ 
+ //ya se puede mostrar la pagina
+ document.getElementById("pagina").removeAttribute("hidden");
+
+ return;
  //NUMBER
  //Recuperamos el título y la respuesta correcta de Input, guardamos el número secreto
  var tituloInput=xmlDoc.getElementsByTagName("title")[0].innerHTML;
@@ -63,7 +135,8 @@ function gestionarXml(dadesXml){
  for (i = 0; i < nopt; i++) { 
     opcionesCheckbox[i]=xmlDoc.getElementById("mrl3").getElementsByTagName('option')[i].innerHTML;
  }  
- ponerDatosCheckboxHtml(tituloCheckbox,opcionesCheckbox);
+ contenedorCheckbox = document.getElementsByClassName("pregunta tipoCheckbox")[0];
+ ponerDatosCheckboxHtml(tituloCheckbox,opcionesCheckbox,contenedorCheckbox);
  var nres = xmlDoc.getElementById("mrl3").getElementsByTagName('answer').length;
  for (i = 0; i < nres; i++) { 
   respuestasCheckbox[i]=xmlDoc.getElementById("mrl3").getElementsByTagName("answer")[i].innerHTML;
@@ -139,20 +212,11 @@ function ponerDatosSelectHtml(t,opt){
  }  
 }
 
-function ponerDatosCheckboxHtml(t,opt){
- var checkboxContainer=document.getElementById('checkboxDiv');
- document.getElementById('tituloCheckbox').innerHTML = t;
+function ponerDatosCheckboxHtml(t,opt,checkboxContainer){
+ checkboxContainer.getElementsByClassName('textPregunta')[0].innerHTML = t;
  for (i = 0; i < opt.length; i++) { 
-    var input = document.createElement("input");
-    var label = document.createElement("label");
-    label.innerHTML=opt[i];
-    label.setAttribute("for", "color_"+i);
-    input.type="checkbox";
-    input.name="color";
-    input.id="color_"+i;;    
-    checkboxContainer.appendChild(input);
-    checkboxContainer.appendChild(label);
-    checkboxContainer.appendChild(document.createElement("br"));
+    var outerHTML = document.getElementsByClassName("pregunta tipoCheckbox")[0].outerHTML;
+    checkboxContainer.outerHTML(outerHTML);
  }  
 }
 
@@ -194,4 +258,14 @@ function comprobar(){
     alert("Selecciona una opción del checkbox");
     return false;
    } else  return true;
+}
+
+
+function mostrarError(error) {
+    console.log("Error: "+error);
+    if (mostrarerrores) {
+    document.getElementById("errores").style.animationName = "animError";
+    document.getElementById("errores").removeAttribute("hidden");
+    document.getElementById("errores").getElementsByTagName("span")[0].innerHTML="No se ha podido cargar el examen ya que "+error;
+    }
 }
