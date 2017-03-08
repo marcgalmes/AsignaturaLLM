@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+}
+
+#errores {
+    position: absolute;
+    animation-duration: 1s;
+    top: 0px;
+    width:99%;
+    border: 1px solid;
+    background-color: #f00000;
+    padding: 7px 2px;
+    padding-top: 2px;
+}
+
+@keyframes animError {
+    from { 
+        top: -40px;
+    } to {
+        top: 0px;
+    }
+}
+
+#topnav {
+    font-size: 2vw;
+    color: #999999;
+    border: 1px solid;
+    padding: 1% 8%;
+    margin: 1% 8%;
+    height: 11vw;
+    font-family: myFirstFont;
+}
+
+#nombreExamen {
+    font-family: Arial;
+    text-align: right;
+    font-size: smaller;
+}
+
+#pagina {
+    padding: 1% 8%;
+}
+
+.pregunta {
+    padding: 10px 20px;
+}
+
+.opcion {
+    padding: 10px 5px;
+    background-color: #eeeeee;
+}
+
+.opcion:hover {
+    background-color: #e1e1e1;
+}
+
+.respuesta {
+    padding: 10px 5px;
+}
+
+select {
+    min-width: 200px;
+}
+
+#formExamen {
+    padding: 1% 8%;
+    min-height: 100vh;
+}
+
+footer {
+    padding: 30px 80px;
+    background: linear-gradient(to bottom, #ffffff, #303030);
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(fonts/TrajanPro3-Regular.otf);
+}

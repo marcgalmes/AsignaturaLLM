@@ -103,6 +103,7 @@ function gestionarXml(dadesXml){
      if (tipo=="radio" || tipo=="checkbox") {
          var labelMod = modelo.getElementsByTagName("label")[0];
          for (j = 0; j < o.length; j++) {
+             if (labelMod==undefined) break;
              //creamos elemento label
              var label = document.createElement("label");
              //definimos un valor for único, usando un contador 
@@ -113,56 +114,53 @@ function gestionarXml(dadesXml){
              label.innerHTML = labelMod.innerHTML;
              var input = label.getElementsByTagName("input")[0];
              input.setAttribute("id",valorFor)
-             //añadimos el texto de la pregunta
+             //añadimos el texto de la opcion
              label.getElementsByClassName("opcion")[0].getElementsByTagName("span")[0].innerHTML = o[j].innerHTML;
              //añadimos el label al div correspondiente
              div.appendChild(label);
          }
-         //ocultamos el modelo del label
-         labelMod.setAttribute("hidden","");
      }
+     else if (tipo.includes("select")) {
+         for (j = 0; j < o.length; j++) {
+             var optionMod = modelo.getElementsByTagName("option")[0];
+             if (optionMod==undefined) break;
+             //creamos elemento option
+             var option = document.createElement("option");
+             option.className = optionMod.className;
+             //añadimos el texto de la opcion
+             option.innerHTML = o[j].innerHTML;
+             //añadimos el label al div correspondiente
+             div.getElementsByTagName("select")[0].appendChild(option);
+         }
+     }//
  }
  
  //ahora borramos las preguntas de los tipos
  for (t in tipos) {
      tipos[t].remove();
  }
+ //tambien borramos los label sin numero
+ var labels = document.getElementsByTagName("label");
+ for (i = 0; i < labels.length; i++) {
+     var l = labels[i];
+     if (l.getAttribute("for").match(/\d+/g)==null) {
+         l.remove();
+     }
+ }
+ //y los option de modelo
+ var selects = document.getElementsByTagName("select");
+ for (i = 0; i < selects.length; i++) {
+     selects[i].getElementsByTagName("option")[0].remove();
+ }
  
  //ya se puede mostrar la pagina
  document.getElementById("pagina").removeAttribute("hidden");
+$('option').mousedown(function(e) {
+    e.preventDefault();
+    $(this).prop('selected', $(this).prop('selected') ? false : true);
+    return false;
+});
 
- return;
- //NUMBER
- //Recuperamos el título y la respuesta correcta de Input, guardamos el número secreto
- var tituloInput=xmlDoc.getElementsByTagName("title")[0].innerHTML;
- ponerDatosInputHtml(tituloInput);
- numeroSecreto=parseInt(xmlDoc.getElementsByTagName("answer")[0].innerHTML);
- 
- //SELECT
- //Recuperamos el título y las opciones, guardamos la respuesta correcta
- var tituloSelect=xmlDoc.getElementsByTagName("title")[1].innerHTML;
- var opcionesSelect = [];
- var nopt = xmlDoc.getElementById("mrl2").getElementsByTagName('option').length;
-  for (i = 0; i < nopt; i++) { 
-    opcionesSelect[i] = xmlDoc.getElementById("mrl2").getElementsByTagName('option')[i].innerHTML;
- }
- ponerDatosSelectHtml(tituloSelect,opcionesSelect);
- respuestaSelect=parseInt(xmlDoc.getElementsByTagName("answer")[1].innerHTML);
-
- //CHECKBOX
- //Recuperamos el título y las opciones, guardamos las respuestas correctas
- var tituloCheckbox = xmlDoc.getElementsByTagName("title")[2].innerHTML;
- var opcionesCheckbox = [];
- var nopt = xmlDoc.getElementById("mrl3").getElementsByTagName('option').length;
- for (i = 0; i < nopt; i++) { 
-    opcionesCheckbox[i]=xmlDoc.getElementById("mrl3").getElementsByTagName('option')[i].innerHTML;
- }  
- contenedorCheckbox = document.getElementsByClassName("pregunta tipoCheckbox")[0];
- ponerDatosCheckboxHtml(tituloCheckbox,opcionesCheckbox,contenedorCheckbox);
- var nres = xmlDoc.getElementById("mrl3").getElementsByTagName('answer').length;
- for (i = 0; i < nres; i++) { 
-  respuestasCheckbox[i]=xmlDoc.getElementById("mrl3").getElementsByTagName("answer")[i].innerHTML;
- }
 }
 
 //****************************************************************************************************
