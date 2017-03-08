@@ -2,6 +2,7 @@ var formElement=null;
 var numeroSecreto=null;
 var respuestaSelect=null;
 var respuestasCheckbox = [];
+var contadorLabelfor = 0;//contador label for para que no se repitan
 var nota = 0;  //nota de la prueba sobre 3 puntos (hay 3 preguntas)
 var mostrarerrores = true;
 
@@ -99,6 +100,27 @@ function gestionarXml(dadesXml){
      div.getElementsByClassName("textPregunta")[0].innerHTML = q[0].innerHTML;
      
      document.getElementById("pagina").appendChild(div);
+     if (tipo=="radio" || tipo=="checkbox") {
+         var labelMod = modelo.getElementsByTagName("label")[0];
+         for (j = 0; j < o.length; j++) {
+             //creamos elemento label
+             var label = document.createElement("label");
+             //definimos un valor for único, usando un contador 
+             var valorFor = labelMod.getAttribute("for")+String(contadorLabelfor);
+             contadorLabelfor+=1;
+             label.setAttribute("for",valorFor);
+             //copiamos el html del label
+             label.innerHTML = labelMod.innerHTML;
+             var input = label.getElementsByTagName("input")[0];
+             input.setAttribute("id",valorFor)
+             //añadimos el texto de la pregunta
+             label.getElementsByClassName("opcion")[0].getElementsByTagName("span")[0].innerHTML = o[j].innerHTML;
+             //añadimos el label al div correspondiente
+             div.appendChild(label);
+         }
+         //ocultamos el modelo del label
+         labelMod.setAttribute("hidden","");
+     }
  }
  
  //ahora borramos las preguntas de los tipos
