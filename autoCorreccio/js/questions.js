@@ -1,24 +1,26 @@
 var formElement=null;
-var numeroSecreto=null;
-var respuestaSelect=null;
-var respuestasCheckbox = [];
 var contadorLabelfor = 0;//contador label for para que no se repitan
-var nota = 0;  //nota de la prueba sobre 3 puntos (hay 3 preguntas)
+var nota = 0;  //nota de la prueba sobre 10 puntos (hay 10 preguntas)
 var mostrarerrores = true;
+var preguntas = null;//preguntas xml
+var divsPreguntas = null;//preguntas html
+var respuestas = {};//{pregunta: respuesta}
 
 //**************************************************************************************************** 
 //Después de cargar la página (onload) se definen los eventos sobre los elementos entre otras acciones.
 window.onload = function(){ 
 
  //CORREGIR al apretar el botón
- formElement=document.getElementById('enviar');
+ formElement=document.getElementById('formExamen');
  formElement.onsubmit=function(){
-   inicializar();
-   if (comprobar()){
-    corregirNumber();
-    corregirSelect();
-    corregirCheckbox();
-    presentarNota();
+     return false;
+ }
+ document.getElementById("btnEnviar").onclick = function() {
+     if (comprobar()){
+        corregirNumber();
+        corregirSelect();
+        corregirCheckbox();
+        presentarNota();
    }
    return false;
  }
@@ -60,8 +62,8 @@ function gestionarXml(dadesXml){
  
  //variable preguntas: todas las etiquietas <question> del xml
  //divsPreguntas: todos los divs del html con clase "pregunta"
- var preguntas = xmlDoc.getElementsByTagName("question");
- var divsPreguntas = []
+ preguntas = xmlDoc.getElementsByTagName("question");
+ divsPreguntas = []
  
  //recorremos preguntas del xml
  for (i = 0; i < preguntas.length; i++) {
@@ -75,6 +77,7 @@ function gestionarXml(dadesXml){
      var a = preguntas[i].getElementsByTagName("answer");
      var o = preguntas[i].getElementsByTagName("option");
      
+     respuestas[preg] = a;
      if (t.length==0) {
          mostrarError("el xml no está bien.");
          return;
@@ -97,7 +100,8 @@ function gestionarXml(dadesXml){
      div.setAttribute("id","preg_"+preg.getAttribute("id"));
      
      //poner texto de las preguntas
-     div.getElementsByClassName("textPregunta")[0].innerHTML = q[0].innerHTML;
+     div.getElementsByClassName("textPregunta")[0].innerHTML = 
+     "<span class=\"numPregunta\">"+String(i+1)+"</span>"+q[0].innerHTML;
      
      document.getElementById("pagina").appendChild(div);
      if (tipo=="radio" || tipo=="checkbox") {
@@ -114,6 +118,7 @@ function gestionarXml(dadesXml){
              label.innerHTML = labelMod.innerHTML;
              var input = label.getElementsByTagName("input")[0];
              input.setAttribute("id",valorFor)
+             input.setAttribute("name","pregunta "+String(i))
              //añadimos el texto de la opcion
              label.getElementsByClassName("opcion")[0].getElementsByTagName("span")[0].innerHTML = o[j].innerHTML;
              //añadimos el label al div correspondiente
@@ -153,6 +158,9 @@ function gestionarXml(dadesXml){
      selects[i].getElementsByTagName("option")[0].remove();
  }
  
+ //ponemos el button sumit al final
+ 
+ document.getElementById("pagina").appendChild(document.getElementById("btnEnviar"));
  //ya se puede mostrar la pagina
  document.getElementById("pagina").removeAttribute("hidden");
 $('option').mousedown(function(e) {
@@ -203,6 +211,15 @@ function corregirCheckbox(){
 
 //Comprobar que se han introducido datos en el formulario
 function comprobar(){
+    for (i = 0; i < divsPreguntas.length; i++) {
+       var pregunta = divsPreguntas[i];
+       var inputs = pregunta.getElementsByTagName("input");
+       if ($('input[name="pregunta 1"]:checked').length == 0) {
+            // alert("selectiona")
+        }
+       
+   }
+   
    var f=formElement;
    var checked=false;
    for (i = 0; i < f.color.length; i++) {  //"color" es el nombre asignado a todos los checkbox
@@ -223,12 +240,13 @@ function comprobar(){
    } else  return true;
 }
 
+//muestra errores del javascript (como hay tantos pues q almenos quede bonito)
 
 function mostrarError(error) {
     console.log("Error: "+error);
     if (mostrarerrores) {
-    document.getElementById("errores").style.animationName = "animError";
-    document.getElementById("errores").removeAttribute("hidden");
-    document.getElementById("errores").getElementsByTagName("span")[0].innerHTML="No se ha podido cargar el examen ya que "+error;
+        document.getElementById("errores").style.animationName = "animError";
+        document.getElementById("errores").removeAttribute("hidden");
+        document.getElementById("errores").getElementsByTagName("span")[0].innerHTML="No se ha podido cargar el examen ya que "+error;
     }
 }
