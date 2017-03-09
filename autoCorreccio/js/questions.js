@@ -214,39 +214,32 @@ function comprobar(){
     for (i = 0; i < divsPreguntas.length; i++) {
        var pregunta = divsPreguntas[i];
        var inputs = pregunta.getElementsByTagName("input");
-       if ($('input[name="pregunta 1"]:checked').length == 0) {
-            // alert("selectiona")
+       if (inputs.length==0) continue;
+       //si el input es de radio o checkbox
+       if (inputs[0].getAttribute("type") in {"radio":0,"checkbox":1}) {
+           if ($('input[name=\"'+inputs[0].getAttribute("name")+'\"]:checked').length == 0) {
+                mostrarError("faltan marcar algunos inputs");
+                return false;
+            }
+        }
+        else {//si es de texto
+            if (inputs[0].value=="") {
+                mostrarError("faltan escribir algunas respuestas")
+            }
         }
        
    }
+   return;
    
-   var f=formElement;
-   var checked=false;
-   for (i = 0; i < f.color.length; i++) {  //"color" es el nombre asignado a todos los checkbox
-      if (f.color[i].checked) checked=true;
-   }
-   if (f.elements[0].value=="") {
-    f.elements[0].focus();
-    alert("Escribe un número");
-    return false;
-   } else if (f.elements[1].selectedIndex==0) {
-    f.elements[1].focus();
-    alert("Selecciona una opción");
-    return false;
-   } if (!checked) {    
-    document.getElementsByTagName("h3")[2].focus();
-    alert("Selecciona una opción del checkbox");
-    return false;
-   } else  return true;
 }
 
-//muestra errores del javascript (como hay tantos pues q almenos quede bonito)
+//muestra errores arriba
 
 function mostrarError(error) {
     console.log("Error: "+error);
     if (mostrarerrores) {
         document.getElementById("errores").style.animationName = "animError";
         document.getElementById("errores").removeAttribute("hidden");
-        document.getElementById("errores").getElementsByTagName("span")[0].innerHTML="No se ha podido cargar el examen ya que "+error;
+        document.getElementById("errores").getElementsByTagName("span")[0].innerHTML="No se puede cargar el examen ya que "+error;
     }
 }
