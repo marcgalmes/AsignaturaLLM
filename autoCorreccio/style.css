@@ -22,7 +22,7 @@ body {
 }
 
 #topnav {
-    font-size: 2vw;
+    font-size: 3vw;
     color: #999999;
     border: 1px solid;
     margin: 1% 8%;
@@ -30,10 +30,22 @@ body {
     font-family: myFirstFont;
 }
 
+#navegacion {
+    position: absolute;
+    right: 0;
+    float: right;
+}
+
+#navegacion {
+    float: right;
+    
+}
+
 #nombreExamen {
     font-family: Arial;
     text-align: right;
     font-size: smaller;
+    padding-left: 6vw;
 }
 
 
@@ -48,6 +60,11 @@ body {
 .pregunta {    
     padding: 10px 20px;
     margin: 30px 10px;
+}
+
+.correcto {
+    background-color: #b0ff70;
+    padding: 3px;
 }
 
 .textPregunta {

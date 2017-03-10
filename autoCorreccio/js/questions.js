@@ -18,7 +18,10 @@ window.onload = function(){
  document.getElementById("btnEnviar").onclick = function() {
      if (comprobar()){
         corregir();
-        presentarNota();
+        //presentarNota();
+        document.getElementById("btnEnviar").value = "Repetir examen";
+        document.getElementById("btnEnviar").onclick = function() {window.location.reload();}
+
    }
    return false;
  }
@@ -173,7 +176,56 @@ $('option').mousedown(function(e) {
 //implementación de la corrección
 
 function corregir() {
-    
+    for (i = 0; i < divsPreguntas.length; i++) {
+        div = divsPreguntas[i];
+        inputs = div.getElementsByTagName("input");
+        resp = respuestas[i];
+        respuestaCorrecta = true;
+        //corregir text, radio, checkbox
+        for (j = 0; j < inputs.length; j++) {
+            input = inputs[j];
+            inputCorrecto = false;
+            if (input.getAttribute("type")=="text") {
+                if (input.value!=resp[0].innerHTML) {
+                    respuestaCorrecta = false;
+                }
+                break;
+            } else {
+                for (k = 0; k < resp.length; k++) {
+                    if (resp[k].innerHTML == String(j)) {
+                        inputCorrecto = true;
+                        break;
+                    }
+                }
+                if (inputCorrecto != input.checked) {
+                    respuestaCorrecta = false;
+                }
+            }
+        }
+        //corregir selects
+        options = div.getElementsByTagName("option");
+        for (j = 0; j < options.length; j++) {
+            option= options[j];
+            optionCorrecto = false;
+        
+            for (k = 0; k < resp.length; k++) {
+                if (resp[k].innerHTML == String(j)) {
+                    optionCorrecto= true;
+                    break;
+                }
+            }
+            if (optionCorrecto != option.selected) {
+                respuestaCorrecta = false;
+            }
+        
+        }
+        
+        div.getElementsByClassName("correcto")[0].removeAttribute("hidden");
+        if (!respuestaCorrecta) {
+            div.getElementsByClassName("correcto")[0].innerHTML = "¡Incorrecto!";
+            div.getElementsByClassName("correcto")[0].style.backgroundColor = "#f0a0a0";
+        }
+    }
 }
 
 function corregirSelect(){

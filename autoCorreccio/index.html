@@ -11,7 +11,11 @@
         
 	<header>
         <div id="errores" hidden><a href="javascript:document.getElementById('errores').setAttribute('hidden','');" style="text-align:right;"><div>[cerrar]</div></a><span style="text-align:left;">Errores aqui</span></div>
-		<div id="topnav"><img style="float:left; height: 11vw;" src="img/logo.png"/>Universidad De Marcianitos<br>
+		<div id="topnav">
+        <div id="navegacion">
+            <span>asdf</span>
+        </div>
+        <img style="float:left; height: 11vw;" src="img/logo.png"/>Universidad De Marcianitos<br>
         <span id="nombreExamen"><b>Examen: Lenguajes de Marcas</b></span>
         </div>
 	</header>
@@ -22,6 +26,7 @@
             <!-- pregunta radio -->
             <div class="pregunta tipoRadio" id="preg_mrlx">
                 <span class="textPregunta">¿Pregunta radio?</span>
+                <span class="correcto" hidden>Correcto</span>
                 <label for="opcionRadio_">
                     <div class="opcion">
                         <input id="opcionRadio_" name="pregunta " type="radio"/> <span>Opcion</span>
@@ -32,6 +37,7 @@
             <!-- pregunt text -->
             <div class="pregunta tipoText">
                 <span class="textPregunta">¿Pregunta text?</span>
+                <span class="correcto" hidden>Correcto</span>
                 <div class="respuesta">
                     <input type="text"/>
                 </div>
@@ -40,6 +46,7 @@
             <!-- pregunta select -->
             <div class="pregunta tipoSelect">
                 <span class="textPregunta">¿Pregunta select?</span>
+                <span class="correcto" hidden>Correcto</span><br>
                 <select class="select">
                     <option class="opcionSelect">Opcion</option>
                 </select>                
@@ -48,6 +55,7 @@
             <!-- pregunta select multiple -->
             <div class="pregunta tipoSelectMultiple">
                 <span class="textPregunta">¿Pregunta select?</span><br>
+                <span class="correcto" hidden>Correcto</span><br>
                 <select multiple class="selectMultiple">
                     <option class="opcionSelectMultiple">Opcion</option>
                 </select>                
@@ -56,6 +64,7 @@
             <!-- pregunta checkbox -->
             <div class="pregunta tipoCheckbox">
                 <span class="textPregunta">¿Pregunta checkbox?</span>
+                <span class="correcto" hidden>Correcto</span>
                 <label for="opcionCheckbox_">
                     <div class="opcion">
                         <input id="opcionCheckbox_" name="pregunta " type="checkbox"/> <span>Opcion</span>
