@@ -17,9 +17,7 @@ window.onload = function(){
  }
  document.getElementById("btnEnviar").onclick = function() {
      if (comprobar()){
-        corregirNumber();
-        corregirSelect();
-        corregirCheckbox();
+        corregir();
         presentarNota();
    }
    return false;
@@ -77,7 +75,7 @@ function gestionarXml(dadesXml){
      var a = preguntas[i].getElementsByTagName("answer");
      var o = preguntas[i].getElementsByTagName("option");
      
-     respuestas[preg] = a;
+     respuestas[i] = a;
      if (t.length==0) {
          mostrarError("el xml no está bien.");
          return;
@@ -174,6 +172,10 @@ $('option').mousedown(function(e) {
 //****************************************************************************************************
 //implementación de la corrección
 
+function corregir() {
+    
+}
+
 function corregirSelect(){
   //Compara el índice seleccionado con el valor del íncide que hay en el xml (<answer>2</answer>)
   //para implementarlo con type radio, usar value para enumerar las opciones <input type='radio' value='1'>...
@@ -218,18 +220,32 @@ function comprobar(){
        //si el input es de radio o checkbox
        if (inputs[0].getAttribute("type") in {"radio":0,"checkbox":1}) {
            if ($('input[name=\"'+inputs[0].getAttribute("name")+'\"]:checked').length == 0) {
-                mostrarError("faltan marcar algunos inputs");
+                mostrarError("<b><u>faltan marcar algunos inputs</u></b>");
+                //marcar en rojo
+                inputs[0].parentNode.style.backgroundColor = "#ff0000";
+                document.getElementById("info").innerHTML = "Selecciona alguna opción de las preguntas en rojo para poder corregir.";
+                document.documentElement.scrollIntoView();
                 return false;
-            }
+            } 
+            else {
+                inputs[0].parentNode.style.backgroundColor = "";
+                }
         }
         else {//si es de texto
             if (inputs[0].value=="") {
-                mostrarError("faltan escribir algunas respuestas")
+                mostrarError("<b><u>faltan escribir algunas respuestas</u></b>")
+                inputs[0].parentNode.style.backgroundColor = "#ff0000";
+                document.getElementById("info").innerHTML = "Escribe algo en las preguntas en rojo para poder corregir.";
+                document.documentElement.scrollIntoView();
+                return false;
             }
+            else {
+                inputs[0].parentNode.style.backgroundColor = "";
+                }
         }
        
    }
-   return;
+   return true;
    
 }
 
