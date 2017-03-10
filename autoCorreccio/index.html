@@ -1,26 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Test de nivel - Universidad de Marcianitos</title> 
     <meta name="viewport" content="width=device-width">
-	<title>Examen: Lenguajes de Marcas - Universidad de Marcianitos</title> 
+    <meta charset="utf-8">
+    <meta name="description" content="Test de nivel, Universidad de Marcianitos">
+    <meta name="keywords" content="examen, universidad de marcianitos, test de nivel, autocorreccion ">
     <script src="js/questions.js"></script>
     <script src="js/jquery-3.1.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
         
 	<header>
+        <span id="tiempo"></span>
         <div id="errores" hidden><a href="javascript:document.getElementById('errores').setAttribute('hidden','');" style="text-align:right;"><div>[cerrar]</div></a><span style="text-align:left;">Errores aqui</span></div>
-		<div id="topnav">
-        <div id="navegacion">
-            <span>asdf</span>
-        </div>
-        <img style="float:left; height: 11vw;" src="img/logo.png"/>Universidad De Marcianitos<br>
-        <span id="nombreExamen"><b>Examen: Lenguajes de Marcas</b></span>
-        </div>
+            <div id="topnav">
+                <a href="">
+                    <img style="float:left; height: 11vw;" src="img/logo.png"/>
+                </a>Universidad De Marcianitos<br>
+                <span id="nombreExamen"><b>Examen: Lenguajes de Marcas</b></span>
+            </div>
 	</header>
 	<article>
-    <form id="formExamen">
+    <div id="instrucciones">
+        <h1>Test de nivel</h1>
+        <p>
+        En este examen podrás comprobar tu nivel sobre un tema seleccionado, de cualquier asignatura. 
+        Abajo podrás seleccionar un examen de una lista y luego, al pulsar 'Comenzar' se mostrará el examen elegido.
+        </p>
+        
+        <p>
+        Los examenes normalmente consisten en 10 preguntas que pueden ser de distintos tipos:
+        </p>
+        <ul>
+            <li>Seleccionar una sola opción en una lista</li>
+            <li>Seleccionar varias opciones en una lista</li>
+            <li>Escribir un texto corto, de una o dos palabras.</li>
+        </ul>
+        <p>
+        Se requiere seleccionar al menos una opción en cada pregunta, no se pueden dejar preguntas en blanco.
+        </p>
+        <p>
+        Al terminar el examen este se corregirá automaticamente y se mostrará una puntuación segun las preguntas acertadas.
+        Todas las preguntas suman la misma nota.
+        </p>
+        
+        <p>
+        Al ser examenes cortos se requiere completarlos en 90 segundos (1 minuto y 30 segundos). Cuando termine el tiempo
+        se bloquearán las preguntas y tendrás que pulsar el botón de corregir.
+        </p>
+        
+        <p>
+        No te preocupes si tu nota es baja o no te ha dado tiempo de terminar el examen. Puedes volverlo a intentar todas
+        las veces que quieras.
+        </p>
+        
+        <select>
+            <option class="nombreexamen" xml="preguntasLlm" selected>Examen: lenguaje de marcas</option>
+            <option class="nombreexamen" xml="dgt1">Test: autoescuela marciana</option>
+        </select>
+        <p>Tiempo: 90 segundos</p>
+        <br>
+        <a href="javascript:cargarFormulario();"><div id="comenzar">Comenzar</div></a>
+    </div>
+    <form id="formExamen" hidden>
 		<div id="pagina" hidden>
         
             <!-- pregunta radio -->
@@ -55,7 +99,7 @@
             <!-- pregunta select multiple -->
             <div class="pregunta tipoSelectMultiple">
                 <span class="textPregunta">¿Pregunta select?</span><br>
-                <span class="correcto" hidden>Correcto</span><br>
+                <span class="correcto" hidden>Correcto</span><br>   
                 <select multiple class="selectMultiple">
                     <option class="opcionSelectMultiple">Opcion</option>
                 </select>                
@@ -72,7 +116,7 @@
                 </label>
                 
             </div>
-            <div id="info"></div>
+            <div id="info">Responde las preguntas y haz clic en 'corregir'.</div>
             <input id="btnEnviar" type="submit" value="Corregir">
         </div>
 

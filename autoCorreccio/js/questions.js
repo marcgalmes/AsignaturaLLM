@@ -1,16 +1,35 @@
 var formElement=null;
 var contadorLabelfor = 0;//contador label for para que no se repitan
-var nota = 0;  //nota de la prueba sobre 10 puntos (hay 10 preguntas)
+var nota = 10;  //nota de la prueba sobre 10 puntos (hay 10 preguntas)
+var notaMaxima = 10;  //nota de la prueba sobre 10 puntos (hay 10 preguntas)
 var mostrarerrores = true;
 var preguntas = null;//preguntas xml
 var divsPreguntas = null;//preguntas html
+var temporizador = null;
+var nombreExamen = "preguntasLlm";
+var tiempoRestante = 90;
 var respuestas = {};//{pregunta: respuesta}
+var funcionReload = function() {window.location.reload();};
 
-//**************************************************************************************************** 
-//Después de cargar la página (onload) se definen los eventos sobre los elementos entre otras acciones.
-window.onload = function(){ 
+function confirmarSalida()
+{
+if(confirm("¿Estas seguro de salir de la p&aacute;gina?\nAl salir de la página, perderás los datos introducidos en el examen.") == true)
+return true;
+else
+return false;
+}
 
+function cargarFormulario() { 
+
+ window.onbeforeunload = confirmarSalida;
  //CORREGIR al apretar el botón
+ var opcionExamen = $("option[class=nombreexamen]:selected")[0]
+ nombreExamen = opcionExamen.getAttribute("xml");
+ document.getElementById("nombreExamen").innerHTML = opcionExamen.innerHTML;
+ 
+ document.getElementById("instrucciones").innerHTML = "";
+ document.getElementById("instrucciones").remove();
+ document.documentElement.scrollIntoView();
  formElement=document.getElementById('formExamen');
  formElement.onsubmit=function(){
      return false;
@@ -20,7 +39,7 @@ window.onload = function(){
         corregir();
         //presentarNota();
         document.getElementById("btnEnviar").value = "Repetir examen";
-        document.getElementById("btnEnviar").onclick = function() {window.location.reload();}
+        document.getElementById("btnEnviar").onclick = funcionReload;
 
    }
    return false;
@@ -33,7 +52,7 @@ window.onload = function(){
    gestionarXml(this);
   }
  };
- xhttp.open("GET", "xml/preguntas.xml", true);
+ xhttp.open("GET", "xml/"+nombreExamen+".xml", true);
  xhttp.send();
 }
 
@@ -64,10 +83,12 @@ function gestionarXml(dadesXml){
  //variable preguntas: todas las etiquietas <question> del xml
  //divsPreguntas: todos los divs del html con clase "pregunta"
  preguntas = xmlDoc.getElementsByTagName("question");
+ notaMaxima = preguntas.length;//la nota maxima sera igual al numero de preguntas
+ nota = notaMaxima;//se ira restando la nota por cada pregunta incorrecta
  divsPreguntas = []
  
  //recorremos preguntas del xml
- for (i = 0; i < preguntas.length; i++) {
+ for (i = 0; i < nota; i++) {
      var div    = document.createElement("div");
      var preg   = preguntas[i];
      
@@ -164,11 +185,42 @@ function gestionarXml(dadesXml){
  document.getElementById("pagina").appendChild(document.getElementById("btnEnviar"));
  //ya se puede mostrar la pagina
  document.getElementById("pagina").removeAttribute("hidden");
+ document.getElementById("formExamen").removeAttribute("hidden");
 $('option').mousedown(function(e) {
     e.preventDefault();
     $(this).prop('selected', $(this).prop('selected') ? false : true);
     return false;
 });
+
+//iniciar temporizador
+temporizador = setInterval(function() {
+    tiempoRestante -=1;
+    document.getElementById("tiempo").innerHTML = "Tiempo restante: "+String(tiempoRestante)+" seg. ";;
+    if (tiempoRestante<=0) {
+        clearInterval(temporizador);
+        inputs = document.getElementsByTagName("input");
+        selects = document.getElementsByTagName("select");
+        for (i = 0; i<inputs.length; i++) {
+            inputs[i].setAttribute("disabled","");
+        }
+        document.getElementById("btnEnviar").removeAttribute("disabled");
+        for (i = 0; i<selects.length; i++) {
+            selects[i].setAttribute("disabled","");
+        }
+        document.getElementById("info").innerHTML = "Se ha acabado el tiempo. Pulsa en 'Corregir' para continuar.";
+        mostrarerrores = false;
+        if (!comprobar()){
+            document.getElementById("info").innerHTML = "Se ha acabado el tiempo. No has completado el examen. Pulsa en 'Repetir' para repetir el examen.";
+            var boton = document.getElementById("btnEnviar");
+            boton.value = "Repetir";
+            boton.onclick = funcionReload;
+        }
+        mostrarerrores = true;
+        document.documentElement.scrollIntoView();
+    }
+},1000);
+
+document.body.style.animationName = "animBody";
 
 }
 
@@ -176,6 +228,7 @@ $('option').mousedown(function(e) {
 //implementación de la corrección
 
 function corregir() {
+    clearInterval(temporizador);
     for (i = 0; i < divsPreguntas.length; i++) {
         div = divsPreguntas[i];
         inputs = div.getElementsByTagName("input");
@@ -222,45 +275,15 @@ function corregir() {
         
         div.getElementsByClassName("correcto")[0].removeAttribute("hidden");
         if (!respuestaCorrecta) {
+            nota-=1;
             div.getElementsByClassName("correcto")[0].innerHTML = "¡Incorrecto!";
             div.getElementsByClassName("correcto")[0].style.backgroundColor = "#f0a0a0";
         }
     }
-}
-
-function corregirSelect(){
-  //Compara el índice seleccionado con el valor del íncide que hay en el xml (<answer>2</answer>)
-  //para implementarlo con type radio, usar value para enumerar las opciones <input type='radio' value='1'>...
-  //luego comparar ese value con el value guardado en answer
-  var sel = formElement.elements[1];  
-  if (sel.selectedIndex-1==respuestaSelect) { //-1 porque hemos puesto una opción por defecto en el select que ocupa la posición 0
-   darRespuestaHtml("P2: Correcto");
-   nota +=1;
-  }
-  else darRespuestaHtml("P2: Incorrecto");
-}
-
-//Si necesitáis ayuda para hacer un corregirRadio() decirlo, lo ideal es que a podáis construirla modificando corregirCheckbox
-function corregirCheckbox(){
-  //Para cada opción mira si está checkeada, si está checkeada mira si es correcta y lo guarda en un array escorrecta[]
-  var f=formElement;
-  var escorrecta = [];
-  for (i = 0; i < f.color.length; i++) {  //"color" es el nombre asignado a todos los checkbox
-   if (f.color[i].checked) {
-    escorrecta[i]=false;     
-    for (j = 0; j < respuestasCheckbox.length; j++) {
-     if (i==respuestasCheckbox[j]) escorrecta[i]=true;
-    }
-    //si es correcta sumamos y ponemos mensaje, si no es correcta restamos y ponemos mensaje.
-    if (escorrecta[i]) {
-     nota +=1.0/respuestasCheckbox.length;  //dividido por el número de respuestas correctas   
-     darRespuestaHtml("P3: "+i+" correcta");    
-    } else {
-     nota -=1.0/respuestasCheckbox.length;  //dividido por el número de respuestas correctas   
-     darRespuestaHtml("P3: "+i+" incorrecta");
-    }   
-   } 
-  }
+    divnota = document.createElement("div");
+    div.id = "nota";
+    div.innerHTML = "Has sacado un "+String(nota)+" de "+String(notaMaxima)+".";
+    document.getElementById("pagina").appendChild(divnota)
 }
 
 //Comprobar que se han introducido datos en el formulario

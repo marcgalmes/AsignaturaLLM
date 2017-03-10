@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<questions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="preguntas.xsd">
+	<question id="preg0">
+	   <type>radio</type>
+	 <title>¿Qué alumbrado llevará encendido una motocicleta durante el día?</title>
+	  <option>a) El de corto alcance o cruce.</option>
+	 <answer>0</answer>
+	  <option>b) El de posición o el de corto alcance.</option>
+	  <option>c) Ninguno.</option>
+	</question>
+
+	<question id="preg1">
+	   <type>radio</type>
+	 <title>¿Puede realizar un cambio de sentido en un lugar donde esté prohibido adelantar?</title>
+	  <option>a) Sí, excepto entre la puesta y la salida de sol, porque disminuye la visibilidad.</option>
+	  <option>b) No, salvo que el cambio de sentido esté expresamente autorizado.</option>
+	 <answer>1</answer>
+	  <option>c) Sí, cuando la circulación en sentido contrario lo permita.</option>
+	</question>
+
+	<question id="preg2">
+	   <type>radio</type>
+	 <title>En una autopista conduciendo un camión de 3.000 Kg. de M.M.A., ¿qué distancia es obligatorio dejar con el vehículo que va delante?</title>
+	  <option>a) 100 metros.</option>
+	  <option>b) 50 metros.</option>
+	  <option>c) La distancia de seguridad.</option>
+	 <answer>2</answer>
+	</question>
+
+	<question id="preg3">
+	   <type>radio</type>
+	 <title>¿Dónde está permitido que viaje un niño que no alcance los 135 centímetros de estatura?</title>
+	  <option>a) En cualquiera de los asientos traseros utilizando el cinturón para adultos.</option>
+	  <option>b) En un asiento delantero o trasero, utilizando siempre el cinturón de seguridad para adultos.</option>
+	  <option>c) En el asiento trasero, utilizando siempre un dispositivo de retención homologado en función de su talla y peso.</option>
+	 <answer>2</answer>
+	</question>
+
+	<question id="preg4">
+	   <type>radio</type>
+	 <title>Con esta señalización, ¿a qué velocidad debe circular?</title>
+	  <option>a) Obligatoriamente a 30 km/h.</option>
+	  <option>b) Al menos a 30 km/h.</option>
+	  <option>c) A 30 km/h, como recomendación, durante el tramo que subsista el peligro.</option>
+	 <answer>2</answer>
+	</question>
+
+	<question id="preg5">
+	   <type>radio</type>
+	 <title>Una línea blanca continua sobre la calzada, sensiblemente más ancha que en el caso general...</title>
+	  <option>a) indica la existencia de un carril especial.</option>
+	 <answer>0</answer>
+	  <option>b) sirve para delimitar, únicamente, los carriles bus.</option>
+	  <option>c) indica el borde de la calzada.</option>
+	</question>
+
+	<question id="preg6">
+	   <type>radio</type>
+	 <title>El seguro obligatorio, ¿cubre los daños en la persona del conductor del vehículo asegurado?</title>
+	  <option>a) Sí, en todo caso.</option>
+	  <option>b) Sí, salvo cuando el conductor es el tomador del seguro.</option>
+	  <option>c) No.</option>
+	 <answer>2</answer>
+	</question>
+
+	<question id="preg7">
+	   <type>radio</type>
+	 <title>La mayor parte de las víctimas mortales por accidente de circulación se producen en...</title>
+	  <option>a) vías interurbanas.</option>
+	 <answer>0</answer>
+	  <option>b) vías urbanas.</option>
+	  <option>c) travesías.</option>
+	</question>
+
+	<question id="preg8">
+	   <type>radio</type>
+	 <title>¿Cuántos espejos retrovisores tienen que llevar instalados las motocicletas?</title>
+	  <option>a) Obligatoriamente uno en el lado derecho, pero pueden llevar dos.</option>
+	  <option>b) Siempre deben llevar dos espejos, uno en cada lado.</option>
+	  <option>c) Un espejo exterior izquierdo si no superan los 100 km/h y dos, uno en cada lado, si la velocidad es mayor.</option>
+	 <answer>2</answer>
+	</question>
+
+	<question id="preg9">
+	   <type>radio</type>
+	 <title>¿Está permitida la circulación de animales por una carretera convencional?</title>
+	  <option>a) Sí, únicamente cuando no exista vía pecuaria.</option>
+	 <answer>0</answer>
+	  <option>b) No.</option>
+	  <option>c) Sí, excepto cuando circulen en rebaño.</option>
+	</question>
+</questions>
