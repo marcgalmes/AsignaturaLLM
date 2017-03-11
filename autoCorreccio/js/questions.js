@@ -23,7 +23,7 @@ function cargarFormulario() {
 
  window.onbeforeunload = confirmarSalida;
  //CORREGIR al apretar el botón
- var opcionExamen = $("option[class=nombreexamen]:selected")[0]
+ var opcionExamen = $("option[class=nombreexamen]:selected")[0];
  nombreExamen = opcionExamen.getAttribute("xml");
  document.getElementById("nombreExamen").innerHTML = opcionExamen.innerHTML;
  
@@ -62,14 +62,14 @@ function cargarFormulario() {
 function gestionarXml(dadesXml){
  var xmlDoc = dadesXml.responseXML; //Parse XML to xmlDoc
  if (xmlDoc == undefined ) {
-     mostrarError("no hay xml.")
+     mostrarError("no hay xml.");
      return;
  }
  
  var tipos = {};//contendra el html para cada tipo
  
  if (document.getElementsByClassName("pregunta").length<5){//tienen q estar los 5 tipos
-     mostrarError("faltan tipos de pregunta en el documento.")
+     mostrarError("faltan tipos de pregunta en el documento.");
  }
  
  //el html ya tiene los 5 tipos (hidden), asi q solo buscamos cada pregunta de cada tipo
@@ -108,7 +108,7 @@ function gestionarXml(dadesXml){
      var tipo = t[0].innerHTML;
      
      if (!(tipo in tipos)) {
-         mostrarError("hay un tipo incorrecto.")
+         mostrarError("hay un tipo incorrecto.");
          return;
      }
      
@@ -283,7 +283,7 @@ function corregir() {
     divnota = document.createElement("div");
     div.id = "nota";
     div.innerHTML = "Has sacado un "+String(nota)+" de "+String(notaMaxima)+".";
-    document.getElementById("pagina").appendChild(divnota)
+    document.getElementById("pagina").appendChild(divnota);
 }
 
 //Comprobar que se han introducido datos en el formulario
@@ -308,7 +308,7 @@ function comprobar(){
         }
         else {//si es de texto
             if (inputs[0].value=="") {
-                mostrarError("<b><u>faltan escribir algunas respuestas</u></b>")
+                mostrarError("<b><u>faltan escribir algunas respuestas</u></b>");
                 inputs[0].parentNode.style.backgroundColor = "#ff0000";
                 document.getElementById("info").innerHTML = "Escribe algo en las preguntas en rojo para poder corregir.";
                 document.documentElement.scrollIntoView();
