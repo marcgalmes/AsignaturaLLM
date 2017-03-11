@@ -35,9 +35,11 @@ function cargarFormulario() {
      return false;
  }
  document.getElementById("btnEnviar").onclick = function() {
+     document.body.style.animationName = "";
      if (comprobar()){
         corregir();
         //presentarNota();
+         window.onbeforeunload = undefined;
         document.getElementById("btnEnviar").value = "Repetir examen";
         document.getElementById("btnEnviar").onclick = funcionReload;
 
@@ -208,6 +210,8 @@ temporizador = setInterval(function() {
             selects[i].setAttribute("disabled","");
         }
         document.getElementById("info").innerHTML = "Se ha acabado el tiempo. Pulsa en 'Corregir' para continuar.";
+         window.onbeforeunload = undefined;
+
         mostrarerrores = false;
         if (!comprobar()){
             document.getElementById("info").innerHTML = "Se ha acabado el tiempo. No has completado el examen. Pulsa en 'Repetir' para repetir el examen.";
